@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>DNA Verification</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+
+<body>
+
+    <h1>🧬 DNA Verification</h1>
+
+    <h3>Food Product DNA Authentication</h3>
+
+    {% if products %}
+
+        <p>Select a food product to verify:</p>
+
+        {% for product in products %}
+
+            <div class="card">
+
+                <h2>
+                    {{ product["name"] }}
+                </h2>
+
+                <p>
+                    Product ID:
+                    {{ product["product_id"] }}
+                </p>
+
+                <a href="/dna/{{ product['product_id'] }}">
+
+                    <button>
+                        🧬 Verify DNA
+                    </button>
+
+                </a>
+
+            </div>
+
+        {% endfor %}
+
+    {% else %}
+
+        <p>
+            Product ID: {{ product_id }}
+        </p>
+
+        <form method="POST">
+
+            <label>
+                Enter DNA Sample ID:
+            </label>
+
+            <br><br>
+
+            <input
+                type="text"
+                name="dna_id"
+                placeholder="Example: DNA001"
+                required
+            >
+
+            <br><br>
+
+            <button type="submit">
+                Verify DNA
+            </button>
+
+        </form>
+
+        {% if result %}
+
+            <h2>
+                {{ result }}
+            </h2>
+
+        {% endif %}
+
+        <br>
+
+        <a href="/dna">
+
+            <button>
+                ← Back to Food List
+            </button>
+
+        </a>
+
+    {% endif %}
+
+</body>
+
+</html>
