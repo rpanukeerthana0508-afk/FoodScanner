@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>Food Result</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+
+<body>
+
+    <nav>
+
+        <h2>🧬 Smart Food Scanner</h2>
+
+        <a href="/">Home</a>
+        <a href="/scan">Scan Food</a>
+
+    </nav>
+
+
+    <section class="result">
+
+        <h1>🍴 {{ product["name"] }}</h1>
+
+        <p class="category">
+            Category: {{ product["category"] }}
+        </p>
+        <a href="/dna/{{ product['product_id'] }}">
+    <button>DNA Verification</button>
+</a>
+
+
+        <div class="card">
+
+            <h2>🧾 Ingredients</h2>
+
+            <p>
+                {{ product["ingredients"] }}
+            </p>
+
+        </div>
+
+
+        <div class="card">
+
+            <h2>⚠️ Allergens</h2>
+
+            <p>
+                {{ product["allergens"] }}
+            </p>
+
+        </div>
+
+
+        <div class="card">
+
+            <h2>🥗 Food Type</h2>
+
+            <p>
+                {{ product["food_type"] }}
+            </p>
+
+        </div>
+
+
+        <div class="card">
+
+            <h2>🔥 Nutrition</h2>
+
+            <p>
+                Calories:
+                {{ product["calories"] }}
+            </p>
+
+            <p>
+                Protein:
+                {{ product["protein"] }}
+            </p>
+
+            <p>
+                Carbohydrates:
+                {{ product["carbohydrates"] }}
+            </p>
+
+            <p>
+                Fat:
+                {{ product["fat"] }}
+            </p>
+
+        </div>
+
+
+        <a href="/scan">
+
+            <button>
+                Scan Another Product
+            </button>
+
+        </a>
+
+    </section>
+
+</body>
+
+</html>
