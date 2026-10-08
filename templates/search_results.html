@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Food Search Results</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+    <h1>🔍 Food Search Results</h1>
+
+    <h3>Search: {{ search }}</h3>
+
+    {% if products %}
+
+        {% for product in products %}
+
+            <div class="product-card">
+
+                <h2>{{ product["name"] }}</h2>
+
+                <p><strong>Product ID:</strong> {{ product["id"] }}</p>
+
+                <p><strong>Category:</strong> {{ product["category"] }}</p>
+
+                <p><strong>Ingredients:</strong> {{ product["ingredients"] }}</p>
+
+                <p><strong>Allergens:</strong> {{ product["allergens"] }}</p>
+
+                <p><strong>Calories:</strong> {{ product["calories"] }}</p>
+
+                <p><strong>Protein:</strong> {{ product["protein"] }}</p>
+
+                <p><strong>Carbohydrates:</strong> {{ product["carbohydrates"] }}</p>
+
+                <p><strong>Fat:</strong> {{ product["fat"] }}</p>
+
+                <p><strong>Food Type:</strong> {{ product["food_type"] }}</p>
+
+                <br>
+
+                <a href="/product/{{ product['id'] }}">
+                    <button>View Product</button>
+                </a>
+
+            </div>
+
+            <hr>
+
+        {% endfor %}
+
+    {% else %}
+
+        <h2>❌ No food product found</h2>
+
+        <p>Try searching with another food name.</p>
+
+    {% endif %}
+
+    <br>
+
+    <a href="/scan">
+        <button>⬅ Back to Search</button>
+    </a>
+
+</body>
+</html>
