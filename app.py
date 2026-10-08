@@ -1,27 +1,33 @@
 from flask import Flask, render_template, request
 import sqlite3
+import os
 
 app = Flask(__name__)
+
+# =================================================
+# DATABASE PATH
+# =================================================
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+DATABASE = os.path.join(BASE_DIR, "food.db")
 
 
 # =================================================
 # DATABASE FUNCTION
-# Get one product using the first column as ID
+# Get one product using Product ID
 # =================================================
 def get_product(product_id):
 
-    connection = sqlite3.connect("food.db")
+    connection = sqlite3.connect(DATABASE)
     connection.row_factory = sqlite3.Row
 
     cursor = connection.cursor()
 
-    # Get all products
     cursor.execute("SELECT * FROM products")
     rows = cursor.fetchall()
 
     connection.close()
 
-    # The first column contains FOOD001, FOOD002, etc.
+    # First column = Product ID
     for row in rows:
 
         if str(row[0]).upper() == str(product_id).upper():
@@ -54,7 +60,7 @@ def scan():
 @app.route("/search", methods=["POST"])
 def search():
 
-    product_id = request.form["product_id"]
+    product_id = request.form["product_id"].strip()
 
     product = get_product(product_id)
 
@@ -80,9 +86,9 @@ def search():
 @app.route("/search-food", methods=["POST"])
 def search_food():
 
-    food_name = request.form["food_name"]
+    food_name = request.form["food_name"].strip()
 
-    connection = sqlite3.connect("food.db")
+    connection = sqlite3.connect(DATABASE)
     connection.row_factory = sqlite3.Row
 
     cursor = connection.cursor()
@@ -129,17 +135,16 @@ def product_page(product_id):
 
 # =================================================
 # DNA VERIFICATION HOME
-# Shows ALL food products
+# Shows ALL FOOD PRODUCTS
 # =================================================
 @app.route("/dna")
 def dna_home():
 
-    connection = sqlite3.connect("food.db")
+    connection = sqlite3.connect(DATABASE)
     connection.row_factory = sqlite3.Row
 
     cursor = connection.cursor()
 
-    # Get all products
     cursor.execute("SELECT * FROM products")
 
     rows = cursor.fetchall()
@@ -190,7 +195,6 @@ def dna_verification(product_id):
         "FOOD013": "DNA013",
         "FOOD014": "DNA014",
         "FOOD015": "DNA015"
-
     }
 
     # Find expected DNA for selected food
@@ -198,7 +202,7 @@ def dna_verification(product_id):
         product_id.upper()
     )
 
-    # When Verify DNA button is clicked
+    # Verify DNA button
     if request.method == "POST":
 
         dna_id = request.form["dna_id"].strip().upper()
@@ -211,8 +215,6 @@ def dna_verification(product_id):
 
             result = "❌ DNA Mismatch - Possible Adulteration"
 
-    # IMPORTANT:
-    # This return is outside the POST block
     return render_template(
         "dna.html",
         product_id=product_id,
@@ -221,7 +223,12 @@ def dna_verification(product_id):
 
 
 # =================================================
-# RUN FLASK
+# RUN FLASK LOCALLY
 # =================================================
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=5000)
+
+    app.run(
+        host="0.0.0.0",
+        port=5000,
+        debug=True
+    )
