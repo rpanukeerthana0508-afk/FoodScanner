@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>Scan Food</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+
+    <!-- QR Scanner Library -->
+    <script src="https://unpkg.com/html5-qrcode"></script>
+
+</head>
+
+
+<body>
+
+    <nav>
+
+        <h2>🧬 Smart Food Scanner</h2>
+
+        <a href="/">Home</a>
+
+        <a href="/scan">Scan Food</a>
+
+    </nav>
+
+
+    <section class="scanner">
+
+        <h1>📷 Scan Food</h1>
+
+        <p>
+            Scan the QR code on the food product.
+        </p>
+
+
+        <!-- Camera Scanner -->
+
+        <div id="reader"></div>
+
+
+        <h3>OR</h3>
+
+
+        <!-- Manual Search -->
+
+        <form action="/search" method="POST">
+
+            <input
+                type="text"
+                name="product_id"
+                placeholder="Example: FOOD001"
+                required
+            >
+
+            <button type="submit">
+                Search Product
+            </button>
+
+        </form>
+
+
+      <div class="example">
+
+    <h3>Demo Product IDs</h3>
+
+    <p>FOOD001 - Chocolate Biscuit</p>
+    <p>FOOD002 - Milk Chocolate</p>
+    <p>FOOD003 - Potato Chips</p>
+    <p>FOOD004 - Instant Noodles</p>
+    <p>FOOD005 - Fruit Juice</p>
+    <p>FOOD006 - Bread</p>
+    <p>FOOD007 - Cheese</p>
+    <p>FOOD008 - Strawberry Yogurt</p>
+    <p>FOOD009 - Popcorn</p>
+    <p>FOOD010 - Apple Juice</p>
+    <p>FOOD011 - Pasta</p>
+    <p>FOOD012 - Chocolate Cake</p>
+    <p>FOOD013 - Corn Flakes</p>
+    <p>FOOD014 - Tomato Soup</p>
+    <p>FOOD015 - Salted Peanuts</p>
+
+</div>
+    </section>
+
+
+    <script>
+
+        function onScanSuccess(decodedText, decodedResult) {
+
+            console.log("Scanned:", decodedText);
+
+            window.location.href =
+                "/search?product_id=" + decodedText;
+
+        }
+
+
+        function onScanFailure(error) {
+
+            // Keep scanning
+
+        }
+
+
+        let scanner = new Html5QrcodeScanner(
+
+            "reader",
+
+            {
+                fps: 10,
+                qrbox: 250
+            }
+
+        );
+
+
+        scanner.render(
+            onScanSuccess,
+            onScanFailure
+        );
+
+    </script>
+
+</body>
+
+</html>
