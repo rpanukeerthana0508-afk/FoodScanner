@@ -62,27 +62,28 @@
         </form>
 
 
-      <div class="example">
+        <div class="example">
 
-    <h3>Demo Product IDs</h3>
+            <h3>Demo Product IDs</h3>
 
-    <p>FOOD001 - Chocolate Biscuit</p>
-    <p>FOOD002 - Milk Chocolate</p>
-    <p>FOOD003 - Potato Chips</p>
-    <p>FOOD004 - Instant Noodles</p>
-    <p>FOOD005 - Fruit Juice</p>
-    <p>FOOD006 - Bread</p>
-    <p>FOOD007 - Cheese</p>
-    <p>FOOD008 - Strawberry Yogurt</p>
-    <p>FOOD009 - Popcorn</p>
-    <p>FOOD010 - Apple Juice</p>
-    <p>FOOD011 - Pasta</p>
-    <p>FOOD012 - Chocolate Cake</p>
-    <p>FOOD013 - Corn Flakes</p>
-    <p>FOOD014 - Tomato Soup</p>
-    <p>FOOD015 - Salted Peanuts</p>
+            <p>FOOD001 - Chocolate Biscuit</p>
+            <p>FOOD002 - Milk Chocolate</p>
+            <p>FOOD003 - Potato Chips</p>
+            <p>FOOD004 - Instant Noodles</p>
+            <p>FOOD005 - Fruit Juice</p>
+            <p>FOOD006 - Bread</p>
+            <p>FOOD007 - Cheese</p>
+            <p>FOOD008 - Strawberry Yogurt</p>
+            <p>FOOD009 - Popcorn</p>
+            <p>FOOD010 - Apple Juice</p>
+            <p>FOOD011 - Pasta</p>
+            <p>FOOD012 - Chocolate Cake</p>
+            <p>FOOD013 - Corn Flakes</p>
+            <p>FOOD014 - Tomato Soup</p>
+            <p>FOOD015 - Salted Peanuts</p>
 
-</div>
+        </div>
+
     </section>
 
 
@@ -92,8 +93,12 @@
 
             console.log("Scanned:", decodedText);
 
+            // Remove spaces from scanned code
+            const productId = decodedText.trim();
+
+            // Open product details page
             window.location.href =
-                "/search?product_id=" + decodedText;
+                "/product/" + encodeURIComponent(productId);
 
         }
 
@@ -101,7 +106,6 @@
         function onScanFailure(error) {
 
             // Keep scanning
-
         }
 
 
